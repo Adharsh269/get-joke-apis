@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JokeAPI</title>
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>JOKE APIS</h1>
+        <% if(locals.category){ %>
+            <div class="response-area">
+                <p class="matter"><span class="heading">Category :</span><%= category %></p>   
+                <p class="matter"><span class="heading">Type :</span><%= type %></p>
+                <p class="matter"><span class="heading">Joke :</span><%= joke %></p>
+                <p class="matter"><span class="heading">Language :</span><%= lang %></p>
+            </div>
+        <% } %>
+        <form action="/get-joke" method="post">
+            <div class="category">
+                <input type="radio" name="catSelect" value="Any" id="any" onchange="reDisable()" checked>
+                <label for="catSelect">Any</label>
+                <div class="multiselect">
+                    <input type="radio" name="catSelect" value="custom" id="custom" onchange="reDisable()">
+                    <label for="catSelect">Custom</label>
+                    <span id="multiselect">         
+                        <input type="checkbox" class="s-cc" name="categories" value="Programming" disabled  >
+                        <label for="programming">Programming</label>
+                        <input type="checkbox" class="s-cc" name="categories" value="Misc" disabled >
+                        <label for="misc">Misc</label>
+                        <input type="checkbox" class="s-cc" name="categories" value="Dark" disabled >
+                        <label for="dark">Dark</label>
+                        <input type="checkbox" class="s-cc" name="categories" value="Pun" disabled >
+                        <label for="pun">Pun</label>
+                        <input type="checkbox" class="s-cc" name="categories" value="Spooky" disabled >
+                        <label for="spooky">Spooky</label>
+                        <input type="checkbox" class="s-cc" name="categories" value="Christmas" disabled >
+                        <label for="christmas">Christmas</label>
+                    </span>
+                </div>
+            </div>
+            <div class="language">
+                    <select  name="lang" class="select-langauage">
+                        <option value="cs">cs - Czech</option>
+                        <option value="de">de - German</option>
+                        <option value="en" selected>en - English</option>
+                        <option value="es">es - Spain</option>
+                        <option value="fr">fr - France</option>
+                        <option value="pt">pt - Portuguese</option>
+                    </select>
+            </div>
+            <div class="flags">
+                    <input type="checkbox"  id="bl-cb1" name="flag" value="nsfw">
+                    <label for="bl-cb1">nsfw</label>
+                    <input type="checkbox"  id="bl-cb2" name="flag" value="religious">
+                    <label for="bl-cb2">religious</label>
+                    <input type="checkbox"  id="bl-cb3" name="flag" value="political">
+                    <label for="bl-cb3">political</label>
+                    <input type="checkbox"  id="bl-cb4" name="flag" value="racist">
+                    <label for="bl-cb4">racist</label>
+                    <input type="checkbox"  id="bl-cb5" name="flag" value="sexist">
+                    <label for="bl-cb5">sexist</label>
+                    <input type="checkbox"  id="bl-cb6" name="flag" value="explict">
+                    <label for="bl-cb6">explict</label>
+            </div>
+            <div class="type">
+                <input type="checkbox" name="type" id="single" value="single" checked>
+                <label for="type">Single</label>
+                <input type="checkbox" name="type" id="twopart" value="twopart" checked>
+                <label for="type">Twopart</label>
+            </div>
+            <div class="buttons">
+                <input type="submit" class="btn" id="get" value="GET" formaction="/get-joke">
+                <input type="submit" class="btn" id="post" value="POST" formaction="/post-joke">
+                <input type="submit" class="btn" id="put" value="PUT" formaction="/put-joke">
+                <input type="submit" class="btn" id="patch" value="PATCH" formaction="/patch-joke">
+                <input type="submit" class="btn" id="delete" value="DELETE" formaction="/delete-joke">
+            </div>
+        </form>
+    </div>
+    
+    <script>
+        function reDisable(){
+            var anyRadio = document.getElementById('any');
+            var customRadio = document.getElementById('custom');
+            var checkboxes = document.getElementsByClassName('s-cc');
+            if(customRadio.checked){
+                for(var i = 0;i<checkboxes.length;i++){
+                    checkboxes[i].disabled=false;
+                }
+            }else if(anyRadio.checked){
+                for(var i = 0;i<checkboxes.length;i++){
+                    checkboxes[i].disabled=true;
+                }
+            }
+        }
+    </script>
+</body>
+</html>
